@@ -22,14 +22,14 @@
               <input type="text" class="search" name="search" id="search" placeholder="Search Your Question">
               <input type="submit" value="Search" class="search_btn">
           </form>
-         
+          <% if (loged_in == true){ %>
             <a href="/profile" class="profile_picture_a"><img src="/media/{{my_users.img }}" alt="" class="profile_picture"></a>
-            <!-- <a class="register-btn" href="/logout">Log out</a> -->
+            <a class="register-btn" href="/logout">Log out</a>
           
-
+            <% }else{ %>
        
           <a class="register-btn" href="/signup">Login</a>
-          
+          <% } %>
           
       </div>
      

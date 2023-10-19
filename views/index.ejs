@@ -1,4 +1,4 @@
-<%- include('header'); -%>
+<%- include('header',{loged_in : loged_in}); -%>
 <div class="banner">
     <div class="main_banner">
         <h2>Welcome To ASK.COM</h2>
@@ -22,7 +22,7 @@
                 <img class="logo_img" src="/media/{{ value.img }}" alt="">
             </div></a>
             <div class="rest">
-                <a class="title_a" href="/answer"><h3 class="question_title">What is html</h3></a>
+                <a class="title_a" href="/answer"><h3 class="question_title"><%- session %></h3></a>
                 <div class="category_section">
                     <a href="/category/{{ value.cat_name }}" class="cat">programming</a>
                    
