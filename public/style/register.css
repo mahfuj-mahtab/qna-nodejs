@@ -1,0 +1,198 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background: #207398;
+}
+.container{
+    width: 1920px;
+    height: 720px;
+}
+.main_container{
+    width: 1365px;
+    height: 720px;
+    margin: 0 auto;
+    /* background: rgb(198, 189, 189); */
+    position: relative;
+}
+.login-box{
+    width: 1000px;
+    height: 500px;
+    margin: 0 auto;
+    margin-top: 200px;
+    background: rgb(255, 255, 255);
+    position: relative;
+    border-radius: 40px;
+    box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.25);
+
+}
+.left_login_box{
+    width: 55%;
+    height: 500px;
+    /* border: 1px solid red; */
+    float: left;
+    
+}
+.register-img{
+    width: 100%;
+    height: 500px;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+
+}
+.right_login_box{
+    width: 44.8%;
+    height: 500px;
+    /* border: 1px solid red; */
+    float: right;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+.login_title{
+    font-family: 'Roboto';
+    margin-left: 160px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.right_login_box input[type = text]{
+    width: 300px;
+    height: 40px;
+    padding-left: 50px;
+    margin-left: 50px;
+    box-shadow: 0px 4px 4px 2px rgba(32, 115, 152, 0.25);
+    border-radius: 15px;
+    border: 1px solid rgb(159, 153, 153);
+    margin-bottom: 10px;
+}
+.right_login_box input[type = password]{
+    width: 300px;
+    height: 40px;
+    padding-left: 50px;
+    margin-left: 50px;
+    box-shadow: 0px 4px 4px 2px rgba(32, 115, 152, 0.25);
+    border-radius: 15px;
+    border: 1px solid rgb(159, 153, 153);
+    margin-bottom: 20px;
+   
+}
+.right_login_box input[type = email]{
+    width: 300px;
+    height: 40px;
+    padding-left: 50px;
+    margin-left: 50px;
+    box-shadow: 0px 4px 4px 2px rgba(32, 115, 152, 0.25);
+    border-radius: 15px;
+    border: 1px solid rgb(159, 153, 153);
+    margin-bottom: 10px;
+}
+.verify{
+    width: 300px;
+    height: 40px;
+    padding-left: 50px;
+    margin-left: 50px;
+    box-shadow: 0px 4px 4px 2px rgba(32, 115, 152, 0.25);
+    border-radius: 15px;
+    border: 1px solid rgb(159, 153, 153);
+    margin-bottom: 10px;
+}
+.material-symbols-outlined{
+    position: absolute;
+    margin-left: -340px;
+    margin-top: 7px;
+    width: 30px;
+    height: 30px;
+    color: #207398;
+}
+.material-symbols-outlined{
+    position: absolute;
+    margin-left: -340px;
+    margin-top: 7px;
+    width: 30px;
+    height: 30px;
+    color: #207398;
+
+}
+.material-symbols-outlined{
+    position: absolute;
+    margin-left: -340px;
+    margin-top: 7px;
+    width: 27px;
+    height: 27px;
+    color: #207398;
+
+}
+.material-symbols-outlined{
+    position: absolute;
+    margin-left: -340px;
+    margin-top: 7px;
+    width: 30px;
+    height: 30px;
+    color: #207398;
+    
+}
+::placeholder{
+    color: #207398;
+}
+.check-box{
+    width: 30px;
+    height: 17px;
+    border: 1px solid red;
+    background: #000;
+    margin-left: 70px;
+    
+}
+.right_login_box input[type = submit]{
+    width: 350px;
+    height: 40px;
+    /* padding-left: 50px; */
+    margin-left: 50px;
+    background: #207398;
+    box-shadow: 0px 4px 4px 2px rgba(32, 115, 152, 0.25);
+    border-radius: 15px;
+    border: 1px solid rgb(159, 153, 153);
+    margin-bottom: 10px;
+    margin-top: -10px;
+    color: white;
+    font-size: 18px;
+}
+
+.a_fb{
+    width: 350px;
+    height: 40px;
+    /* padding-left: 50px; */
+    margin-left: 50px;
+    background: #207398;
+    box-shadow: 0px 4px 4px 2px rgba(32, 115, 152, 0.25);
+    border-radius: 15px;
+    border: 1px solid rgb(159, 153, 153);
+    /* margin-bottom: 10px; */
+    margin-top: 20px;
+    color: white;
+    font-size: 17px;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    text-decoration: none;
+    /* border: 1px solid red; */
+}
+.fb{
+    position: absolute;
+    margin-left: -35px;
+    margin-top: 7px;
+    width: 25px;
+    height: 25px;
+    background-color: #207398;
+}
+.a_login{
+    color: #207398;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+}
+.a_forget{
+    color: #207398;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}

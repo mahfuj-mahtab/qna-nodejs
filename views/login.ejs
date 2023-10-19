@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="style/register.css">
+    <link rel="stylesheet" href="style/responsive.css">
+    <style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 48
+        }
+        </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main_container">
+
+            <div class="login-box">
+                <div class="left_login_box">
+                    <img class="register-img" src="image/register.jpg" alt="">
+                </div>
+                <div class="right_login_box">
+                    <h3 class="login_title">Login </h3>
+
+                    <form action="" method="POST">
+                        
+                        <input type="email" name="email" id="" placeholder="Enter Email Address">
+                        <span class="material-symbols-outlined">
+                            mail
+                            </span>
+                        <br>
+                        <input type="password" name="password" id="" placeholder="Enter Password"> 
+                        <span class="material-symbols-outlined">
+                            lock
+                            </span>
+                        <br>
+                        <span style="color: #869BA4; margin-left: 60px;">Forget Password? <span style="color: #207398 ; font-size: 15px;"> <b>  <a class="a_forget" href="/recover"> Recover Password </a></b> </span></span>
+                        <br>
+               
+                        
+                        <br>
+                        <input type="submit" value="Login">
+                        <br>
+                        <span style="color: #869BA4; margin-left: 90px;">Don't Have Account? <span style="color: #207398"> <b>  <a class="a_login" href="/signup"> Register </a></b> </span></span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
