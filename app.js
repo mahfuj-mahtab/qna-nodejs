@@ -77,21 +77,20 @@ const questionSchema = new mongoose.Schema({
 const Question = mongoose.model('Question',questionSchema)
 
 //route
-app.get('/', function (req, res) {
-    let question_dict = {}
-    let q_dict = {}
-    Question.find().then((result)=>{
+app.get('/', async function (req, res) {
+    var question_dict = {}
+    var q_dict = {}
+    await Question.find().then((result)=>{
         if(result != undefined && result.length != 0){
             console.log("found question");
  
             
             
             var i = 0;
-            result.forEach((r)=>{
+            result.forEach(async (r)=>{
 
-           
                 // console.log(i);
-                User.find({_id : r.user.toHexString()}).then((user)=>{
+                await User.find({_id : r.user.toHexString()}).then((user)=>{
                     // console.log(i);
                     // console.log(result[0].user._id)
                     console.log(user[0]);
@@ -103,21 +102,25 @@ app.get('/', function (req, res) {
                         'name' : user[0].name
                     }
                     question_dict[i] = q_dict
+                    
 
-                    // console.log(q_dict);
+                    // console.log(question_dict);
                     q_dict = {}
                 })
-                console.log(q_dict);
+                // console.log(q_dict);
+                console.log(i)
+
                 i+=1
             })
-            console.log(question_dict)
-            console.log(question_dict)
+            // console.log(question_dict)
+            // console.log(question_dict)
         }
         else{
             console.log("no queestion found")
         }
     })
     if(req.session.user !== undefined){
+        console.log('didi',question_dict)
         data = {
             'session' : req.session.user,
             "loged_in" : true
@@ -125,6 +128,8 @@ app.get('/', function (req, res) {
         res.render('index',data);
     }
     else{
+        console.log('didi',question_dict)
+
         data = {
             'session' : req.session.user,
             "loged_in" : false
