@@ -58,9 +58,65 @@ const userSchema = new mongoose.Schema({
 })
 
 const User = mongoose.model('User',userSchema)
+const questionSchema = new mongoose.Schema({
+    title : String,
+    description : String,
+    user : {
+        type : mongoose.Types.ObjectId,
+        ref : 'User'
+    },
+    category : String,
+    time : {
+        type : Date,
+        default : new Date()
+
+    },
+
+})
+
+const Question = mongoose.model('Question',questionSchema)
 
 //route
 app.get('/', function (req, res) {
+    let question_dict = {}
+    let q_dict = {}
+    Question.find().then((result)=>{
+        if(result != undefined && result.length != 0){
+            console.log("found question");
+ 
+            
+            
+            var i = 0;
+            result.forEach((r)=>{
+
+           
+                // console.log(i);
+                User.find({_id : r.user.toHexString()}).then((user)=>{
+                    // console.log(i);
+                    // console.log(result[0].user._id)
+                    console.log(user[0]);
+                    // console.log(result.length);
+                    q_dict = {
+                        'title' : r.title,
+                        'description' : r.description,
+                        'category' : r.category,
+                        'name' : user[0].name
+                    }
+                    question_dict[i] = q_dict
+
+                    // console.log(q_dict);
+                    q_dict = {}
+                })
+                console.log(q_dict);
+                i+=1
+            })
+            console.log(question_dict)
+            console.log(question_dict)
+        }
+        else{
+            console.log("no queestion found")
+        }
+    })
     if(req.session.user !== undefined){
         data = {
             'session' : req.session.user,
@@ -83,6 +139,24 @@ app.get('/ask', function (req, res) {
             "loged_in" : true
         }
         res.render('ask',data);
+    }
+    else{
+        res.redirect("/login")
+    }
+})
+app.post('/ask', function (req, res) {
+    if(req.session.user !== undefined){
+        if(req.body.title != undefined && req.body.description != undefined && req.body.category != undefined){
+            User.find({email : req.session.user}).then(result=>{
+
+                const question = new Question({title : req.body.title,description : req.body.description, category : req.body.category, user : result[0]._id})
+                question.save()
+                res.redirect("/")
+            })
+        }
+        else{
+            console.log("you need to fillup all info")
+        }
     }
     else{
         res.redirect("/login")
