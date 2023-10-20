@@ -78,6 +78,25 @@ const questionSchema = new mongoose.Schema({
 })
 
 const Question = mongoose.model('Question',questionSchema)
+const answerSchema = new mongoose.Schema({
+    answer : String,
+    user : {
+        type : mongoose.Types.ObjectId,
+        ref : 'User'
+    },
+    question : {
+        type : mongoose.Types.ObjectId,
+        ref : 'Question'
+    },
+    time : {
+        type : Date,
+        default : new Date()
+
+    },
+
+})
+
+const Answer = mongoose.model('Answer',answerSchema)
 
 //route
 app.get('/', async function (req, res) {
@@ -153,8 +172,43 @@ app.post('/ask', function (req, res) {
         res.redirect("/login")
     }
 })
-app.get('/answer', function (req, res) {
-    res.render('answer');
+app.get('/answer/:qId/:qTitle',async function (req, res) {
+    const question = await Question.find({_id : req.params.qId})
+    const user = await User.find({_id : question[0].user})
+    const answers = await Answer.find().populate('user question');
+    // console.log(answers)
+    const answerDict = answers.map(answer => ({
+        answerText: answer.answer,
+        user: {
+            img: answer.user.img, // Assuming the User model has a 'name' field
+            user: answer.user.user, // Assuming the User model has a 'name' field
+            name: answer.user.name, // Assuming the User model has a 'name' field
+            // Other user fields you want to include
+        }
+    }));
+
+    if(req.session.user !== undefined){
+        // console.log(answerDict);
+        data = {
+            "loged_in" : true,
+            'question': question[0],
+            'user' : user[0],
+            'answers' : answerDict,
+        }
+        res.render('answer',data);
+    }
+    else{
+        // console.log(answerDict);
+
+        data = {
+            "loged_in" : false,
+            'question': question[0],
+            'user' : user[0],
+            'answers' : answerDict,
+        }
+
+        res.render('answer',data);
+    }
 })
 app.get('/signup', function (req, res) {
     res.render('register');
@@ -230,6 +284,21 @@ app.post('/login', function (req, res) {
         console.log("undefined login")
     )
 })
-
+app.post("/answer/:qId",async (req,res)=>{
+    if(req.body.answer != undefined){
+        User.find({email : req.session.user}).then(result=>{
+        const answer = new Answer({
+            'answer' : req.body.answer,
+            'user' : result[0]._id,
+            'question' : req.params.qId
+        })
+        answer.save()
+        res.redirect("/")
+    })
+    }
+    else{
+        console.log("answer is empty")
+    }
+})
 app.listen(3000)
 

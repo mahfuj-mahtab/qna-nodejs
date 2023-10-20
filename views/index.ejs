@@ -22,7 +22,7 @@
                 <img class="logo_img" src="/media/{{ value.img }}" alt="">
             </div></a>
             <div class="rest">
-                <a class="title_a" href="/answer"><h3 class="question_title"><%- question.title %></h3></a>
+                <a class="title_a" href="/answer/<%= question._id %>/<%= question.title.replace(/\s+/g, '-').toLowerCase(); %>"><h3 class="question_title"><%- question.title %></h3></a>
                 <div class="category_section">
                     <a href="/category/{{ value.cat_name }}" class="cat"><%- question.title %></a>
                    

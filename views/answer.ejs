@@ -5,7 +5,7 @@
         <div class="main_banner">
             <h2>Welcome To ASK.COM</h2>
             <p>Ask Any Question And <br> Get Answered</p>
-            <a href="/ask_question"  class="ask_question">Ask  Question</a>
+            <a href="/ask"  class="ask_question">Ask  Question</a>
         </div>
             
     </div>
@@ -19,21 +19,21 @@
                 <div class="answer_details">
                     <div class="answer_details_top">
                         <div class="answer_details_top_left">
-                            <img src="/media/{{question_user.img }} " alt="" class="question_profile">
+                            <img src="/upload/<%= user.img %> " alt="" class="question_profile">
                         </div>
                         <div class="answer_details_top_right">
-                            <h3 class="q_title">Whast is html</h3>
+                            <h3 class="q_title"><%= question.title %></h3>
                      
-                            <a href="/category/{{ question.cat_name }}" class="answer_category">programming</a>
+                            <a href="/category/{{ question.cat_name }}" class="answer_category"><%= question.category %></a>
                             
-                            <span class="time">3 oct</span>
+                            <span class="time"><%= question.time.toLocaleTimeString() %></span>
                             <span class="views"><b>View : 32</b></span>
                         </div>
                        
                         
                     </div>
                     <div class="answer">
-                        <p>{{ question.details }}</p>
+                        <p><%= question.description %></p>
                     </div>
                     <div class="likedislike">
                         
@@ -43,66 +43,41 @@
 
                 <div class="answer_section">
                     <h1>Answer Section</h1>
-                    {% for key,value in info.items %}
+                    <% answers.forEach(function(answer) { %>
                     <div class="answer_details2">
                         <div class="answer_details_top2">
                             <div class="answer_details_top_left2">
-                               <a href="/profile/user/{{ value.user}}"> <img src="/media/{{ value.img }} " alt="" class="question_profile2"></a>
+                               <a href="/profile/user/<%= answer.user.user %>"> <img src="/upload/<%= answer.user.img %> " alt="" class="question_profile2"></a>
                             </div>
                             <div class="answer_details_top_right2">
-                                <h3 class="q_title2">{{ value.name }}</h3>
+                                <h3 class="q_title2"><%= answer.user.name %></h3>
                          
-                                
-                             
-                            </div>
-                           
-                            
+                            </div> 
                         </div>
                         
                         <div class="answer">
-                            <p>{{ value.answer }}</p>
+                            <p><%= answer.answerText %></p>
                         </div>
-                        <div class="likedislikepart"> 
-                            <form action="/like/answer/{{value.ans_id}}" method="POST">
-                                {%csrf_token%}
-                                <button>
-                                    <span class="num">{{value.like}}</span>
-                        <span class="material-symbols-outlined">
-                               thumb_up
-                            </span>
-                        </button>
-                        </form>
-                        <form action="/dislike/answer/{{value.ans_id}}" method="POST">
-                            {%csrf_token%}
-                            <button>
-                                <span class="num">  {{value.dislike}} </span>
-                            <span class="material-symbols-outlined">
-                                thumb_down
-                                </span>
-                                </button>
-                                </form>
-                            </div>
+                       
                     </div>
-                    {% endfor %}
-
-                    <div class="ansreply">
-                        
-                    </div>
+                   
+                    <% }); %>
+                   
 
 
                 </div>
                 
 
                 <div class="answerformsection">
-                    {% if registered == True %}
-                    <form action="" method="post">
-                        {% csrf_token %}
+                    <% if(loged_in == true){%>
+                    <form action="/answer/<%= question._id %>" method="post">
+                        
                         <textarea name="answer" id="" cols="90" rows="10" placeholder="Please Enter Your Answer"></textarea>
                         <input class="answer-btn" type="submit" value="Answer">
                     </form>
-                    {% else %}
+                <%}else{ %>
                         <h1 class="war">You need to login to answer</h1>
-                    {% endif %}
+                    <% } %>
                 </div>
 
 
@@ -110,9 +85,9 @@
             <div class="right_main_container">
             
                 <div class="overview">
-                    <p class="p1">{{ total_question }}<br>  Questions</p>
-                <p class="p1">{{ total_answer }}<br>Answered</p>
-                <p class="p1">{{ perchantage|floatformat:2 }}%<br>Answered</p>
+                    <p class="p1">111<br>  Questions</p>
+                <p class="p1">23<br>Answered</p>
+                <p class="p1">34%<br>Answered</p>
     
                 </div>
                 
