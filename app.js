@@ -51,7 +51,10 @@ const userSchema = new mongoose.Schema({
     email : String,
     user : String,
     password : String,
-    img : String,
+    img : {
+        type : String,
+        default : 'default.jpg'
+    },
     bio : String,
     
 
@@ -78,64 +81,47 @@ const Question = mongoose.model('Question',questionSchema)
 
 //route
 app.get('/', async function (req, res) {
-    var question_dict = {}
-    var q_dict = {}
-    await Question.find().then((result)=>{
-        if(result != undefined && result.length != 0){
+    var question_dict = {};
+    var q_dict = {};
+    
+    Question.find().then(async (results) => {
+        if (results !== undefined && results.length !== 0) {
             console.log("found question");
- 
-            
-            
-            var i = 0;
-            result.forEach(async (r)=>{
 
-                // console.log(i);
-                await User.find({_id : r.user.toHexString()}).then((user)=>{
-                    // console.log(i);
-                    // console.log(result[0].user._id)
-                    console.log(user[0]);
-                    // console.log(result.length);
-                    q_dict = {
-                        'title' : r.title,
-                        'description' : r.description,
-                        'category' : r.category,
-                        'name' : user[0].name
-                    }
-                    question_dict[i] = q_dict
-                    
+    
+            if(req.session.user !== undefined){
+                console.log('didi',question_dict)
+                data = {
+                    'session' : req.session.user,
+                    "loged_in" : true,
+                    'questions' : results,
+                    'question_available' : true,
+                }
+                res.render('index',data);
+            }
+            else{
+                console.log('didi',question_dict)
+        
+                data = {
+                    'session' : req.session.user,
+                    "loged_in" : false,
+                    'questions' : results,
+                    'question_available' : true,
+                }
+                res.render('index',data);
+            }
+        } else {
+            data = {
+                'session' : req.session.user,
+                "loged_in" : false,
+                'questions' : results,
+                'question_available' : false,
+            }
+            res.render('index',data);
+        }
+    });
+    
 
-                    // console.log(question_dict);
-                    q_dict = {}
-                })
-                // console.log(q_dict);
-                console.log(i)
-
-                i+=1
-            })
-            // console.log(question_dict)
-            // console.log(question_dict)
-        }
-        else{
-            console.log("no queestion found")
-        }
-    })
-    if(req.session.user !== undefined){
-        console.log('didi',question_dict)
-        data = {
-            'session' : req.session.user,
-            "loged_in" : true
-        }
-        res.render('index',data);
-    }
-    else{
-        console.log('didi',question_dict)
-
-        data = {
-            'session' : req.session.user,
-            "loged_in" : false
-        }
-        res.render('index',data);
-    }
 })
 app.get('/ask', function (req, res) {
     if(req.session.user !== undefined){
@@ -151,7 +137,7 @@ app.get('/ask', function (req, res) {
 })
 app.post('/ask', function (req, res) {
     if(req.session.user !== undefined){
-        if(req.body.title != undefined && req.body.description != undefined && req.body.category != undefined){
+         if(req.body.title != undefined && req.body.description != undefined && req.body.category != undefined){
             User.find({email : req.session.user}).then(result=>{
 
                 const question = new Question({title : req.body.title,description : req.body.description, category : req.body.category, user : result[0]._id})
@@ -190,7 +176,7 @@ app.post('/signup', function (req, res) {
                             bcrypt.hash(req.body.password, salt, function(err, hash) {
                                 const u = new User({
                                     email : req.body.email,
-                                    username : req.body.username,
+                                    user : req.body.username,
                                     name : req.body.fullname,
                                     password : hash,
                                     bio : 'Hi'

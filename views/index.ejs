@@ -14,151 +14,31 @@
             
          <div class="left_main_container">
 
-         
-
+         <% if (question_available === true){ %>
+            <% questions.forEach(function(question){%>
             <div class="question">
                 <a href="/profile/user/{{ value.user }}" class="logo_a">
                 <div class="logo_section">
                 <img class="logo_img" src="/media/{{ value.img }}" alt="">
             </div></a>
             <div class="rest">
-                <a class="title_a" href="/answer"><h3 class="question_title"><%- session %></h3></a>
+                <a class="title_a" href="/answer"><h3 class="question_title"><%- question.title %></h3></a>
                 <div class="category_section">
-                    <a href="/category/{{ value.cat_name }}" class="cat">programming</a>
+                    <a href="/category/{{ value.cat_name }}" class="cat"><%- question.title %></a>
                    
                 
                 </div>
-                <p class="time">3 oct</p>
+                <p class="time"><%= question.time.toLocaleTimeString() %></p>
                 <!-- <p class="total_ans"><b>11 Answered</b></p> -->
 
             </div>
             </div>
+            <% }); %>
+            <% } else{%>
 
-            <div class="question">
-                <a href="/profile/user/{{ value.user }}" class="logo_a">
-                <div class="logo_section">
-                <img class="logo_img" src="/media/{{ value.img }}" alt="">
-            </div></a>
-            <div class="rest">
-                <a class="title_a" href="/answer/{{ value.id }}"><h3 class="question_title">What is html</h3></a>
-                <div class="category_section">
-                    <a href="/category/{{ value.cat_name }}" class="cat">programming</a>
-                   
-                
-                </div>
-                <p class="time">3 oct</p>
-                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
-
-            </div>
-            </div>
-
-            <div class="question">
-                <a href="/profile/user/{{ value.user }}" class="logo_a">
-                <div class="logo_section">
-                <img class="logo_img" src="/media/{{ value.img }}" alt="">
-            </div></a>
-            <div class="rest">
-                <a class="title_a" href="/answer/{{ value.id }}"><h3 class="question_title">What is html</h3></a>
-                <div class="category_section">
-                    <a href="/category/{{ value.cat_name }}" class="cat">programming</a>
-                   
-                
-                </div>
-                <p class="time">3 oct</p>
-                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
-
-            </div>
-            </div>
-
-            <div class="question">
-                <a href="/profile/user/{{ value.user }}" class="logo_a">
-                <div class="logo_section">
-                <img class="logo_img" src="/media/{{ value.img }}" alt="">
-            </div></a>
-            <div class="rest">
-                <a class="title_a" href="/answer/{{ value.id }}"><h3 class="question_title">What is html</h3></a>
-                <div class="category_section">
-                    <a href="/category/{{ value.cat_name }}" class="cat">programming</a>
-                   
-                
-                </div>
-                <p class="time">3 oct</p>
-                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
-
-            </div>
-            </div>
-
-            <div class="question">
-                <a href="/profile/user/{{ value.user }}" class="logo_a">
-                <div class="logo_section">
-                <img class="logo_img" src="/media/{{ value.img }}" alt="">
-            </div></a>
-            <div class="rest">
-                <a class="title_a" href="/answer/{{ value.id }}"><h3 class="question_title">What is html</h3></a>
-                <div class="category_section">
-                    <a href="/category/{{ value.cat_name }}" class="cat">programming</a>
-                   
-                
-                </div>
-                <p class="time">3 oct</p>
-                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
-
-            </div>
-            </div>
-
-            <div class="question">
-                <a href="/profile/user/{{ value.user }}" class="logo_a">
-                <div class="logo_section">
-                <img class="logo_img" src="/media/{{ value.img }}" alt="">
-            </div></a>
-            <div class="rest">
-                <a class="title_a" href="/answer/{{ value.id }}"><h3 class="question_title">What is html</h3></a>
-                <div class="category_section">
-                    <a href="/category/{{ value.cat_name }}" class="cat">programming</a>
-                   
-                
-                </div>
-                <p class="time">3 oct</p>
-                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
-
-            </div>
-            </div>
-
-            <div class="question">
-                <a href="/profile/user/{{ value.user }}" class="logo_a">
-                <div class="logo_section">
-                <img class="logo_img" src="/media/{{ value.img }}" alt="">
-            </div></a>
-            <div class="rest">
-                <a class="title_a" href="/answer/{{ value.id }}"><h3 class="question_title">What is html</h3></a>
-                <div class="category_section">
-                    <a href="/category/{{ value.cat_name }}" class="cat">programming</a>
-                   
-                
-                </div>
-                <p class="time">3 oct</p>
-                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
-
-            </div>
-            </div>
-
-            <div class="question">
-                <a href="/profile/user/{{ value.user }}" class="logo_a">
-                <div class="logo_section">
-                <img class="logo_img" src="/media/{{ value.img }}" alt="">
-            </div></a>
-            <div class="rest">
-                <a class="title_a" href="/answer/{{ value.id }}"><h3 class="question_title">What is html</h3></a>
-                <div class="category_section">
-                    <a href="/category/{{ value.cat_name }}" class="cat">programming</a>
-                   
-                
-                </div>
-                <p class="time">3 oct</p>
-                <!-- <p class="total_ans"><b>11 Answered</b></p> -->
-
-            </div>
-            </div>
+                <p>No question available</p>
+            <% } %>
+   
 
 
     
