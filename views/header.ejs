@@ -23,7 +23,7 @@
               <input type="submit" value="Search" class="search_btn">
           </form>
           <% if (loged_in == true){ %>
-            <a href="/profile" class="profile_picture_a"><img src="/media/{{my_users.img }}" alt="" class="profile_picture"></a>
+            <a href="/profile" class="profile_picture_a"><img src="/upload/<%= user.img%>" alt="" class="profile_picture"></a>
             <a class="register-btn" href="/logout">Log out</a>
           
             <% }else{ %>

@@ -1,4 +1,8 @@
-<%- include('header',{loged_in : loged_in}); -%>
+<% if (loged_in == true){ %>
+<%- include('header',{loged_in : loged_in,user : user}); -%>
+<% }else{%>
+    <%- include('header',{loged_in : loged_in}); -%>
+    <% }%>
 <div class="banner">
     <div class="main_banner">
         <h2>Welcome To ASK.COM</h2>
@@ -17,9 +21,9 @@
          <% if (question_available === true){ %>
             <% questions.forEach(function(question){%>
             <div class="question">
-                <a href="/profile/user/{{ value.user }}" class="logo_a">
+                <a href="/profile/user/<%- question.user.user %>" class="logo_a">
                 <div class="logo_section">
-                <img class="logo_img" src="/media/{{ value.img }}" alt="">
+                <img class="logo_img" src="/upload/<%- question.user.img %>" alt="">
             </div></a>
             <div class="rest">
                 <a class="title_a" href="/answer/<%= question._id %>/<%= question.title.replace(/\s+/g, '-').toLowerCase(); %>"><h3 class="question_title"><%- question.title %></h3></a>

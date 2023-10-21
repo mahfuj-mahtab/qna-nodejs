@@ -103,28 +103,43 @@ app.get('/', async function (req, res) {
     var question_dict = {};
     var q_dict = {};
     
-    Question.find().then(async (results) => {
-        if (results !== undefined && results.length !== 0) {
-            console.log("found question");
+    const questions = await Question.find().populate('user');
+    // console.log(questions);
+    // console.log(answers)
+
+        if (questions !== undefined && questions.length !== 0) {
+            const QuestionDict = questions.map(question => ({
+                title: question.title,
+                category : question.category,
+                time : question.time,
+                _id : question._id,
+                user: {
+                    img: question.user.img, 
+                    user: question.user.user, 
+                    name: question.user.name, 
+                   
+                }
+            }));
 
     
             if(req.session.user !== undefined){
-                console.log('didi',question_dict)
+                const user = await User.find({email : req.session.user})
+                console.log(user[0]);
                 data = {
                     'session' : req.session.user,
                     "loged_in" : true,
-                    'questions' : results,
+                    'questions' : QuestionDict,
                     'question_available' : true,
+                    'user' : user[0]
                 }
                 res.render('index',data);
             }
             else{
-                console.log('didi',question_dict)
         
                 data = {
                     'session' : req.session.user,
                     "loged_in" : false,
-                    'questions' : results,
+                    'questions' : QuestionDict,
                     'question_available' : true,
                 }
                 res.render('index',data);
@@ -133,12 +148,12 @@ app.get('/', async function (req, res) {
             data = {
                 'session' : req.session.user,
                 "loged_in" : false,
-                'questions' : results,
+                'questions' : QuestionDict,
                 'question_available' : false,
             }
             res.render('index',data);
         }
-    });
+  
     
 
 })
@@ -180,10 +195,10 @@ app.get('/answer/:qId/:qTitle',async function (req, res) {
     const answerDict = answers.map(answer => ({
         answerText: answer.answer,
         user: {
-            img: answer.user.img, // Assuming the User model has a 'name' field
-            user: answer.user.user, // Assuming the User model has a 'name' field
-            name: answer.user.name, // Assuming the User model has a 'name' field
-            // Other user fields you want to include
+            img: answer.user.img, 
+            user: answer.user.user, 
+            name: answer.user.name, 
+           
         }
     }));
 
