@@ -1,0 +1,57 @@
+<%- include('header',{loged_in : loged_in}); -%>
+<div class="main_profile_div bg2">
+<div class="main_container ">
+    <div class="profile_div">
+        <div class="top_profile_div">
+            <div class="profile_left">
+                <img src="/upload/<%- user.img %>" alt="" class="main_profile_img">
+            </div>
+            <div class="profile_right">
+                <h2 class="profile_name"><%- user.name %></h2>
+                <span class="follow_section"><%- no_of_ques %> Asked || <%- no_of_ans %> Answered</span>
+                <br>
+                <a href="/profileedit" class="follow">Edit Profile</a>
+            </div>
+        </div>
+        <div class="botoom_profile_div">
+            <p class="bio"><%- user.bio %></p>
+        </div>
+    </div>
+    <div class="link_section">
+        <a href="/profile" class="black" >Questions(<%- no_of_ques %>)</a>
+        <a href="/profile/answer" class="highlight2" >You Answered(<%- no_of_ans %>)</a>
+        <!-- <a href="" class="black">Followers(50)</a>
+        <a href="" class="black">Followings(50)</a> -->
+    </div>
+
+    <div class="profile_bottom_section">
+        <div class="question_section_profile show">
+     
+            <% answers_dict.forEach((question)=>{%>
+        <div class="question2">
+            <!-- <div class="logo_section">
+            <a href="" class="logo_a"><img class="logo_img" src="{% static 'img/mohot.jpg' %}" alt=""></a>
+        </div> -->
+        <div class="rest2">
+            <a class="title_a" href="/answer/{{ question.id }}"><h3 class="question_title"><%- question.question.title %></h3></a>
+            <div class="category_section">
+                <a href="#" class="cat"><%- question.question.category %></a>
+               
+            
+            </div>
+            <p class="time"><%- question.question.time.toLocaleTimeString() %></p>
+            <!-- <p class="total_ans"><b>11 Answered</b></p> -->
+
+        </div>
+        </div>
+        <% }) %>
+
+</div>
+
+
+</div>
+</div>
+
+
+
+<div class="footer">All Right Reserved @ ask.com</div>

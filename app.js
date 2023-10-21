@@ -315,5 +315,47 @@ app.post("/answer/:qId",async (req,res)=>{
         console.log("answer is empty")
     }
 })
+
+app.get("/profile/answer",async (req,res)=>{
+    if(req.session.user != undefined){
+        const user = await User.find({email : req.session.user})
+        const questions = await Question.find({user : user[0]._id})
+        const answers = await Answer.find({user : user[0]._id})
+        const answers_dict = await Answer.find({user : user[0]._id}).populate('question')
+        console.log(answers_dict);
+        data = {
+            'loged_in' : true,
+            'user' : user[0],
+            'questions' : questions,
+            'answers' : answers,
+            'no_of_ques' : questions.length,
+            'no_of_ans' : answers.length,
+            'answers_dict' : answers_dict
+        }
+        res.render("profile_answer",data)
+    }
+    else{
+        res.redirect("/login")
+    }
+})
+app.get("/profile",async (req,res)=>{
+    if(req.session.user != undefined){
+        const user = await User.find({email : req.session.user})
+        const questions = await Question.find({user : user[0]._id})
+        const answers = await Answer.find({user : user[0]._id})
+        data = {
+            'loged_in' : true,
+            'user' : user[0],
+            'questions' : questions,
+            'answers' : answers,
+            'no_of_ques' : questions.length,
+            'no_of_ans' : answers.length,
+        }
+        res.render("profile",data)
+    }
+    else{
+        res.redirect("/login")
+    }
+})
 app.listen(3000)
 
