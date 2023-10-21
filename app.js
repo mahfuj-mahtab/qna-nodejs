@@ -124,7 +124,7 @@ app.get('/', async function (req, res) {
     
             if(req.session.user !== undefined){
                 const user = await User.find({email : req.session.user})
-                console.log(user[0]);
+                // console.log(user[0]);
                 data = {
                     'session' : req.session.user,
                     "loged_in" : true,
@@ -336,6 +336,115 @@ app.get("/profile/answer",async (req,res)=>{
     }
     else{
         res.redirect("/login")
+    }
+})
+app.get("/profile/:user",async (req,res)=>{
+    if(req.session.user != undefined){
+        const u = await User.find({email : req.session.user})
+        if(u[0].user === req.params.user){
+            res.redirect("/profile")
+        }
+        else{
+
+        
+        const main_user = await User.find({user : req.params.user})
+        if(main_user != undefined && main_user.length != 0){
+            const questions = await Question.find({user : main_user[0]._id})
+            const answers = await Answer.find({user : main_user[0]._id})
+            data = {
+                'loged_in' : true,
+                'user' : main_user[0],
+                'questions' : questions,
+                'answers' : answers,
+                'no_of_ques' : questions.length,
+                'no_of_ans' : answers.length,
+            }
+            res.render("otherprofile",data)
+        }
+        else{
+        res.redirect("/")
+
+        }
+    }
+
+    }
+    else{
+        const main_user = await User.find({user : req.params.user})
+        if(main_user != undefined && main_user.length != 0){
+            const questions = await Question.find({user : main_user[0]._id})
+            const answers = await Answer.find({user : main_user[0]._id})
+            data = {
+                'loged_in' : false,
+                'user' : main_user[0],
+                'questions' : questions,
+                'answers' : answers,
+                'no_of_ques' : questions.length,
+                'no_of_ans' : answers.length,
+            }
+            res.render("otherprofile",data)
+        }
+        else{
+        res.redirect("/")
+
+        }
+    }
+})
+app.get("/profile/answer/:user",async (req,res)=>{
+    if(req.session.user != undefined){
+        const u = await User.find({email : req.session.user})
+        if(u[0].user === req.params.user){
+            res.redirect("/profile")
+        }
+        else{
+
+        
+        const main_user = await User.find({user : req.params.user})
+        if(main_user != undefined && main_user.length != 0){
+            const questions = await Question.find({user : main_user[0]._id})
+            const answers = await Answer.find({user : main_user[0]._id})
+            const answers_dict = await Answer.find({user : main_user[0]._id}).populate('question')
+
+            
+            data = {
+                'loged_in' : true,
+                'user' : main_user[0],
+                'questions' : questions,
+                'answers' : answers,
+                'no_of_ques' : questions.length,
+                'no_of_ans' : answers.length,
+                'answers_dict' : answers_dict
+            }
+            res.render("otherprofileanswer",data)
+        }
+        else{
+        res.redirect("/")
+
+        }
+    }
+
+    }
+    else{
+        const main_user = await User.find({user : req.params.user})
+        if(main_user != undefined && main_user.length != 0){
+            const questions = await Question.find({user : main_user[0]._id})
+            const answers = await Answer.find({user : main_user[0]._id})
+            const answers_dict = await Answer.find({user : main_user[0]._id}).populate('question')
+
+            data = {
+                'loged_in' : false,
+                'user' : main_user[0],
+                'questions' : questions,
+                'answers' : answers,
+                'no_of_ques' : questions.length,
+                'no_of_ans' : answers.length,
+                'answers_dict' : answers_dict
+            }
+            res.render("otherprofileanswer",data)
+        }
+        else{
+        res.redirect("/")
+
+        }
     }
 })
 app.get("/profile",async (req,res)=>{
