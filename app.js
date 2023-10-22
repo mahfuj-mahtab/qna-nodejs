@@ -30,8 +30,8 @@ app.use(session({
 // req.session.cookie.maxAge = hour
 
 //db connnection
-// mongoose.connect('mongodb://127.0.0.1:27017/qnanode')
-//   .then(() => console.log('Connected!'));
+mongoose.connect('mongodb+srv://mohot:mohot@cluster0.izfa076.mongodb.net/?retryWrites=true&w=majority')
+  .then(() => console.log('Connected!'));
 
 
 
@@ -145,23 +145,29 @@ app.get('/', async function (req, res) {
                 res.render('index',data);
             }
         } else {
-            data = {
-                'session' : req.session.user,
-                "loged_in" : false,
-                'questions' : QuestionDict,
-                'question_available' : false,
-            }
-            res.render('index',data);
+            // if(req.session.user !== undefined){
+            //     const user = await User.find({email : req.session.user})
+            //     // console.log(user[0]);
+            //     data = {
+            //         'session' : req.session.user,
+            //         "loged_in" : true,
+            //         'user' : user[0]
+            //     }
+        
+                res.redirect("/ask")
         }
   
     
 
 })
-app.get('/ask', function (req, res) {
+app.get('/ask', async function (req, res) {
     if(req.session.user !== undefined){
+        const user = await User.find({email : req.session.user})
+
         data = {
             'session' : req.session.user,
-            "loged_in" : true
+            "loged_in" : true,
+            'user' : user[0]
         }
         res.render('ask',data);
     }
