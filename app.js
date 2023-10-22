@@ -30,8 +30,8 @@ app.use(session({
 // req.session.cookie.maxAge = hour
 
 //db connnection
-mongoose.connect('mongodb://127.0.0.1:27017/qnanode')
-  .then(() => console.log('Connected!'));
+// mongoose.connect('mongodb://127.0.0.1:27017/qnanode')
+//   .then(() => console.log('Connected!'));
 
 
 
