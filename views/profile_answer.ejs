@@ -33,7 +33,7 @@
             <a href="" class="logo_a"><img class="logo_img" src="{% static 'img/mohot.jpg' %}" alt=""></a>
         </div> -->
         <div class="rest2">
-            <a class="title_a" href="/answer/{{ question.id }}"><h3 class="question_title"><%- question.question.title %></h3></a>
+            <a class="title_a" href="/answer/<%= question._id %>/<%= question.title.replace(/\s+/g, '-').toLowerCase(); %>"><h3 class="question_title"><%- question.question.title %></h3></a>
             <div class="category_section">
                 <a href="#" class="cat"><%- question.question.category %></a>
                

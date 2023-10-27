@@ -28,7 +28,7 @@
             <div class="rest">
                 <a class="title_a" href="/answer/<%= question._id %>/<%= question.title.replace(/\s+/g, '-').toLowerCase(); %>"><h3 class="question_title"><%- question.title %></h3></a>
                 <div class="category_section">
-                    <a href="/category/{{ value.cat_name }}" class="cat"><%- question.title %></a>
+                    <a href="/category/<%- question.category %>" class="cat"><%- question.category %></a>
                    
                 
                 </div>
